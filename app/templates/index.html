@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- <link href="style.css"> -->
+     <!-- <link rel="stylesheet" href="/static/style.css"> -->
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>URL Shortener</h1>
+            <p>Create short, shareable links instantly</p>
+            
+            <div class="form-group">
+                <input 
+                    type="url" 
+                    id="urlInput" 
+                    placeholder="Enter your long URL here..."
+                    required
+                >
+                <button onclick="shortenURL()">Shorten</button>
+            </div>
+            
+            <div id="result" class="result hidden">
+                <p>Your shortened URL:</p>
+                <div class="result-box">
+                    <input type="text" id="shortURL" readonly>
+                    <button onclick="copyToClipboard()">Copy</button>
+                </div>
+                <div class="stats">
+                    <p>Short Code: <span id="shortCode"></span></p>
+                    <p>Created: <span id="createdAt"></span></p>
+                </div>
+            </div>
+            
+            <div id="error" class="error hidden"></div>
+        </div>
+    </div>
+    
+    <script>
+        async function shortenURL() {
+            const urlInput = document.getElementById('urlInput');
+            const url = urlInput.value.trim();
+            const resultDiv = document.getElementById('result');
+            const errorDiv = document.getElementById('error');
+            
+            if (!url) {
+                showError('Please enter a URL');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/shorten', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url: url })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    showError(data.error || 'Failed to shorten URL');
+                    return;
+                }
+                
+                document.getElementById('shortURL').value = data.short_url;
+                document.getElementById('shortCode').textContent = data.short_code;
+                document.getElementById('createdAt').textContent = data.created_at;
+                
+                resultDiv.classList.remove('hidden');
+                errorDiv.classList.add('hidden');
+                urlInput.value = '';
+            } catch (error) {
+                showError('An error occurred. Please try again.');
+                console.error(error);
+            }
+        }
+        
+        function copyToClipboard() {
+            const shortURL = document.getElementById('shortURL');
+            shortURL.select();
+            document.execCommand('copy');
+            alert('Copied to clipboard!');
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            const resultDiv = document.getElementById('result');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+            resultDiv.classList.add('hidden');
+        }
+        
+        // Allow Enter key to shorten URL
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                shortenURL();
+            }
+        });
+    </script>
+</body>
+</html>
