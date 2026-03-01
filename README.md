@@ -132,7 +132,7 @@ python run.py
   "id": 1,
   "long_url": "https://example.com/very/long/url",
   "short_code": "abc123",
-  "short_url": "http://localhost:5000/abc123",
+  "short_url": "http://localhost:5001/abc123",
   "created_at": "2024-02-16T10:30:00",
   "expiration_date": null,
   "click_count": 0
@@ -184,7 +184,7 @@ Environment variables (`.env` file):
 | `DATABASE_URL` | PostgreSQL connection string | `postgresql://urlshortener:password@localhost:5432/urlshortener` |
 | `REDIS_URL` | Redis connection string | `redis://localhost:6379/0` |
 | `REDIS_TTL` | Cache TTL in seconds | `3600` |
-| `BASE_URL` | Base URL for short links | `http://localhost:5000` |
+| `BASE_URL` | Base URL for short links | `http://localhost:5001` |
 | `SECRET_KEY` | Flask secret key | Random string |
 | `FLASK_ENV` | Environment (development/production) | `development` |
 | `LOG_LEVEL` | Logging level | `INFO` |
@@ -278,7 +278,7 @@ MIT License - see LICENSE file for details
 ## Support
 
 For issues and questions:
-- GitHub Issues: https://github.com/abhinav12singh/url-shortener/issues
+- GitHub Issues: https://github.com/abhinav12singh/git-files-url/issues
 - Documentation: See this README
 
 ---
