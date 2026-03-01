@@ -78,7 +78,7 @@ docker-compose up -d
 ```
 
 3. **Access the application**
-- Web UI: http://localhost:5000
+- Web UI: http://localhost:5001
 - API: http://localhost:5000/shorten
 
 ### Manual Setup
