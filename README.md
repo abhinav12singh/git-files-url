@@ -8,6 +8,7 @@ A production-grade, distributed URL shortener built with Python, Flask, PostgreS
 ![Redis](https://img.shields.io/badge/Redis-7-red)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
 
+
 ## Features
 
 - **⚡ Lightning Fast**: Sub-10ms response times with Redis caching
@@ -68,7 +69,7 @@ url-shortener/
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/url-shortener.git
+git clone https://github.com/yourusername/git-files-url.git
 cd url-shortener
 ```
 
@@ -78,7 +79,7 @@ docker-compose up -d
 ```
 
 3. **Access the application**
-- Web UI: http://localhost:5000
+- Web UI: http://localhost:5001
 - API: http://localhost:5000/shorten
 
 ### Manual Setup
